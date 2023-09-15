@@ -1,0 +1,72 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Listes des services et de leurs ressources
+{% endblock %}
+{% block content %}
+<div class="container mx-auto p-6">
+    <h1 class="text-4xl text-bold mb-4 " align="center">Liste des Services & de leur équipement</h1>
+    <div class="bg-white p-10 rounded-xl border border-gray-300 shadow-xl overflow-x-auto mt-8">
+
+        <table id="myTable" class="display w-full">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Services</th>
+                    <th>Machines</th>
+                    <th>Commutateurs</th>
+                    <th>Serveurs</th>
+                    <th>Telephones</th>
+                    <th>Imprimantes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service, machine, com, sev, tel, imp in data %}
+                <tr>
+                    <td align="center">{{loop.index}}</td>
+                    <td align="center">{{service.nom}}</td>
+                    {% if machine %}
+                    <td align="center">{{machine.nom}}</td>
+                    {% else %}
+                    <td align="center"><span class="text-black"><i>Rien ici pour le moment</i></span></td>
+                    {% endif %}
+                    {% if com %}
+                    <td align="center">{{com.nom}}</td>
+                    {% else %}
+                    <td align="center"><span class="text-black"><i>Rien ici pour le moment</i></span></td>
+                    {% endif %}
+                    {% if sev %}
+                    <td align="center">{{sev.nom}}</td>
+                    {% else %}
+                    <td align="center"><span class="text-black"><i>Rien ici pour le moment</i></span></td>
+                    {% endif %}
+                    {% if tel %}
+                    <td align="center">{{tel.nom}}</td>
+                    {% else %}
+                    <td align="center"><span class="text-black"><i>Rien ici pour le moment</i></span></td>
+                    {% endif %}
+                    {% if imp %}
+                    <td align="center">{{imp.nom}}</td>
+                    {% else %}
+                    <td align="center"><span class="text-black"><i>Rien ici pour le moment</i></span></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-8">
+        <a href="/admin/services&list" class="text-orange-500 hover:underline">Voir la liste des services</a>
+        <span class="mx-2 text-gray-600">|</span>
+        <a href="/admin/machines" class="text-orange-500 hover:underline">Voir la liste des machines</a>
+        <span class="mx-2 text-gray-600">|</span>
+        <a href="/admin/commutateurs" class="text-orange-500 hover:underline">Voir la liste des Commutateurs</a>
+        <span class="mx-2 text-gray-600">|</span>
+        <a href="/admin/serveurs" class="text-orange-500 hover:underline">Voir la liste des Serveurs</a>
+        <span class="mx-2 text-gray-600">|</span>
+        <a href="/admin/telephones" class="text-orange-500 hover:underline">Voir la liste des Telephones</a>
+        <span class="mx-2 text-gray-600">|</span>
+        <a href="/admin/imprimantes" class="text-orange-500 hover:underline">Voir la liste des Imprimantes</a>
+        <span class="mx-2 text-gray-600">|</span>
+    </div>
+</div>
+{% endblock %}

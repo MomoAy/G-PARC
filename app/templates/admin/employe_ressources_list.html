@@ -1,0 +1,55 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Liste des employés et des ressources
+{% endblock %}
+{% block content %}
+<div class="container mx-auto p-6">
+    <h1 class="text-2xl text-bold">Liste des Employés & de leur Equipement</h1>
+    <div class="bg-white rounded-xl border border-gray-300 shadow-xl overflow-x-auto w-full p-6 mt-6">
+        <table id="myTable" class="display w-full">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nom de l'ordinateur</th>
+                    <th>Systeme</th>
+                    <th>Domaine</th>
+                    <th>Bitlocker</th>        
+                    <th>Nom de l'utilisateur</th>
+                    <th>Numero du téléphone</th>
+                    <th>Adresse IP</th>
+                    <th>Service</th>
+                    <th>Modele</th>
+                    <th>Numéro de Série</th>
+                    <th>KES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user, machine, tel, service in data %}
+                <tr>
+                    <td align="center">{{loop.index}}</td>
+                    <td align="center">{{machine.nom}}</td>
+                    <td align="center">{{machine.systeme}}</td>
+                    <td align="center">{{machine.domaine}}</td>
+                    <td align="center">{{machine.bitlocker}}</td>
+                    <td align="center">{{user.nom}}</td>
+                    <td align="center">{{tel.numero}}</td>
+                    <td align="center">{{machine.adresse_ip}}</td>
+                    <td align="center">{{service.nom}}</td>
+                    <td align="center">{{machine.model}}</td>
+                    <td align="center">{{machine.no_serie}}</td>
+                    <td align="center">{{machine.kes}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="mt-8">
+        <a href="/admin/employe&list" class="text-orange-500 hover:underline">Voir la liste des utilisateurs</a>
+        <span class="mx-2 text-gray-600">|</span>
+        <a href="/admin/machines" class="text-orange-500 hover:underline">Voir la liste des machines</a>
+        <span class="mx-2 text-gray-600">|</span>
+        <a href="/admin/telephones" class="text-orange-500 hover:underline">Voir la liste des Telephones</a>
+    </div>
+
+</div>
+{% endblock %}

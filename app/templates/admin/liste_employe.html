@@ -1,0 +1,148 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Ajouter des employés
+{% endblock %}
+{% block content %}
+<div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold">Liste des Employés</h1>
+    <div class="flex justify-start mt-8" >
+        <a href="/admin/Créer&des&employés"
+            class="mb-2 shadow-xl block text-white bg-orange-600 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"><span class="">+</span> Ajouter un employé</a>
+    </div>
+<div class="bg-white p-10 rounded-xl border border-gray-300 shadow-xl overflow-x-auto">
+        <table id="myTable" class="display w-full">
+            <thead>
+                <tr>
+                    <th>
+                        Nom
+                    </th>
+                    <th>
+                        Prenom
+                    </th>
+                    <th>
+                        Nom d'utilisateur
+                    </th>
+                    <th>
+                        email
+                    </th>
+                    <th>
+                        Service
+                    </th>
+                    <th>
+                        état
+                    </th>
+                    <th>
+                        Changer l'état
+                    </th>
+                    <!-- <th>
+                        Modifier
+                    </th> -->
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for service, user in data %}
+                <tr>
+                    <td align="center">{{user.nom}}</td>
+                    <td align="center">{{user.prenom}}</td>
+                    <td align="center">{{user.nom_utilisateur}}</td>
+                    <td align="center">{{user.email}}</td>
+                    <td align="center">{{service.nom}}</td>
+                    <td align="center">
+                        {% if user.is_validated == true %}
+                        Actif
+                        {% else %}
+                        Inactif
+                        {% endif %}
+                    </td>
+                    {% if user.is_validated == true %}
+                    <td align="center">
+                        <a class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                            href="/admin/desactive&employe/{{user.id}}">
+                                Désactiver
+                        </a>
+                    </td>
+                    {% else %}
+                    <td align="center">
+                        <a class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                            href="/admin/active&employe/{{user.id}}">
+                                Activer
+                        </a>
+                    </td>
+                    {% endif %}
+                    <!-- <td align = "center">
+                        <button type="button" class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2" onclick="openModal()">
+                            Modifier
+                        </button>
+                    </td> -->
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Formulaire modale -->
+    <div class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div class="modal-content bg-white rounded-lg p-6 w-1/2">
+          <h2 class="text-xl font-semibold mb-4">Formulaire</h2>
+          <form class="modal-form">
+            <label for="champ1" class="block mb-2">Champ 1 :</label>
+            <input type="text" id="champ1" name="champ1"
+              class="w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300">
+    
+            <label for="champ2" class="block mb-2">Champ 2 :</label>
+            <input type="text" id="champ2" name="champ2"
+              class="w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300">
+    
+            <label for="champ3" class="block mb-2">Champ 3 :</label>
+            <input type="text" id="champ3" name="champ3"
+              class="w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300">
+    
+            <label for="champ4" class="block mb-2">Champ 4 :</label>
+            <input type="text" id="champ4" name="champ4"
+              class="w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300">
+    
+            <label for="champ5" class="block mb-2">Champ 5 :</label>
+            <input type="text" id="champ5" name="champ5"
+              class="w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300">
+    
+            <label for="champ6" class="block mb-2">Champ 6 :</label>
+            <input type="text" id="champ6" name="champ6"
+              class="w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300">
+    
+            <label for="champ7" class="block mb-2">Champ 7 :</label>
+            <input type="text" id="champ7" name="champ7"
+              class="w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300">
+    
+            <button type="submit"
+              class="mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+              Modifier
+            </button>
+          </form>
+        </div>
+      </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %} doc {% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+  <!-- Afficher les messages flash -->
+  {% with messages = get_flashed_messages(with_categories = true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  {% if category == "error" %}
+  <div id="alert-additional-content-1"
+    class="p-4 text-red-800 border border-red-300 rounded-lg bg-red-50  absolute top-0 left-1/2 transform -translate-x-1/2 mt-2 bg-opacity-90"
+    role="alert">
+    <div class="flex items-center">
+      <svg class="flex-shrink-0 w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 20 20">
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+      </svg>
+      <span class="sr-only">Info</span>
+      <h3 class="text-lg font-medium">{{message}}</h3>
+    </div>
+    <div class="flex justify-end">
+      <button type="button"
+        class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-red-600 dark:border-red-600 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
+        data-dismiss-target="#alert-additional-content-1" aria-label="Close">
+        Dismiss
+      </button>
+    </div>
+  </div>
+  {% elif category == "success" %}
+  <div id="alert-additional-content-2"
+    class="p-4 text-green-800 border border-green-300 rounded-lg bg-green-50  dark:text-green-400 absolute top-0 left-1/2 transform -translate-x-1/2 mt-2 bg-opacity-90"
+    role="alert">
+    <div class="flex items-center">
+      <svg class="flex-shrink-0 w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 20 20">
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+      </svg>
+      <span class="sr-only">Info</span>
+      <h3 class="text-lg font-medium">{{message}}</h3>
+    </div>
+    <div class="flex justify-end">
+      <button type="button"
+        class="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-green-600 dark:border-green-600 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
+        data-dismiss-target="#alert-additional-content-2" aria-label="Close">
+        Fermer
+      </button>
+    </div>
+  </div>
+  {% else %}
+  <div id="alert-additional-content-3"
+    class="p-4 mb-4 text-blue-800 border border-blue-300 rounded-lg bg-blue-50  dark:text-blue-400 absolute top-0 left-1/2 transform -translate-x-1/2 mt-2 bg-opacity-90"
+    role="alert">
+    <div class="flex items-center">
+      <svg class="flex-shrink-0 w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 20 20">
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+      </svg>
+      <span class="sr-only">Info</span>
+      <h3 class="text-lg font-medium">{{message}}</h3>
+    </div>
+    <div class="flex justify-end">
+      <button type="button"
+        class="text-blue-800 bg-transparent border border-blue-800 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-blue-600 dark:border-blue-600 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
+        data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+        Fermer
+      </button>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <div class="flex">
+    <!-- Navbar -->
+    <div class="flex h-screen flex-col justify-between border-e bg-gray-900 w-1/5 ">
+      <div class="px-4 py-6">
+        <span class="grid h-10 w-62 place-content-center rounded-lg bg-gray-100 text-2xl font-bold text-orange-600">
+          IT-GTA
+        </span>
+
+        <ul class="mt-6 space-y-1">
+          <li>
+            <a href="/client/" class="block rounded-lg hover:bg-orange-200 px-4 py-2 text-xl font-medium text-white">
+              <svg class="h-6 w-6 inline-block fill-current text-white mr-2" viewBox="0 0 32 32">
+                <path d="M27,29H5V17H3.235c-1.138,0-1.669-1.419-0.812-2.168L14.131,3.745c1.048-0.993,2.689-0.993,3.737,0l11.707,11.087  C30.433,15.58,29.902,17,28.763,17H27V29z" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+                <path d="M20,29h-8v-6c0-2.209,1.791-4,4-4h0c2.209,0,4,1.791,4,4V29" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+              </svg>
+              Acceuil
+            </a>
+          </li>
+
+          <li>
+            <details class="group [&_summary::-webkit-details-marker]:hidden">
+              <summary
+                class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-white hover:bg-orange-200 hover:text-gray-700">
+
+                <span class="text-xl font-medium">
+                  <svg class="h-6 w-6 inline-block fill-current text-white mr-2" viewBox="0 0 64 64">
+                    <g>
+                      <path d="M58.059,46.74L50,44.262v-2.132c1.849-1.816,3-4.34,3-7.129h1c2.757,0,5-2.243,5-5c0-1.627-0.793-3.061-2-3.974V22   c0-7.72-6.28-14-14-14c-1.826,0-3.566,0.362-5.166,1H35V6c0-2.757-2.243-5-5-5H14c-2.757,0-5,2.243-5,5v3H4c-1.654,0-3,1.346-3,3v1   v7v16c0,3.859,3.14,7,7,7h28v1.262l-8.059,2.479C24.986,47.65,23,50.34,23,53.432V63h40v-9.568C63,50.34,61.014,47.65,58.059,46.74   z M52.406,47.094l-3.739,6.482l-4.097-2.731l4.712-4.712L52.406,47.094z M41.847,57h2.306l0.667,4H41.18L41.847,57z M44.465,55   h-2.93l-0.841-1.261L43,52.202l2.306,1.537L44.465,55z M48,44.586l-5,5l-5-5v-0.939C39.473,44.502,41.178,45,43,45   s3.527-0.498,5-1.353V44.586z M51,35c0,4.411-3.589,8-8,8c-2.953,0-5.532-1.613-6.918-4h2.102c0.414,1.161,1.514,2,2.816,2h4   c1.654,0,3-1.346,3-3s-1.346-3-3-3h-4c-1.302,0-2.402,0.839-2.816,2h-2.921C35.097,36.359,35,35.692,35,35v-8.037   c3.003-0.226,5.803-1.466,8-3.555c2.197,2.089,4.997,3.329,8,3.555V35z M40,38c0-0.552,0.449-1,1-1h4c0.551,0,1,0.448,1,1   s-0.449,1-1,1h-4C40.449,39,40,38.552,40,38z M33,33h-1c-1.654,0-3-1.346-3-3s1.346-3,3-3h1V33z M31,34.899   C31.323,34.965,31.658,35,32,35h1c0,0.685,0.07,1.354,0.202,2H32c-0.551,0-1-0.448-1-1V34.899z M54,33h-1v-6h1c1.654,0,3,1.346,3,3   S55.654,33,54,33z M55,22v3.101C54.677,25.035,54.342,25,54,25h-1h-1c-2.958,0-5.738-1.151-7.828-3.242L43,20.585l-1.171,1.173   C39.738,23.849,36.958,25,34,25h-1h-1c-0.342,0-0.677,0.035-1,0.101V22c0-6.617,5.383-12,12-12S55,15.383,55,22z M11,6   c0-1.654,1.346-3,3-3h16c1.654,0,3,1.346,3,3v3h-2V5H13v4h-2V6z M29,9H15V7h14V9z M3,12c0-0.552,0.449-1,1-1h30.368   C31.106,13.565,29,17.538,29,22v3h-4v-2h-6v2H8c-2.757,0-5-2.243-5-5v-7V12z M23,25v4h-2v-4H23z M3,36V24.889   C4.272,26.19,6.042,27,8,27h11v4h6v-4h3.026C27.391,27.838,27,28.87,27,30c0,1.627,0.793,3.061,2,3.974V36c0,1.654,1.346,3,3,3   h1.841c0.314,0.716,0.713,1.383,1.178,2H8C5.243,41,3,38.757,3,36z M36.719,46.133l4.712,4.712l-4.101,2.734l-3.771-6.474   L36.719,46.133z M25,53.432c0-2.209,1.418-4.13,3.529-4.779l3.066-0.943l5.075,8.712l2.359-1.573l0.918,1.378L39.153,61H33v-5h-2v5   h-6V53.432z M61,61h-6v-5h-2v5h-6.153l-0.796-4.774l0.918-1.377l2.363,1.576l5.034-8.726l3.103,0.955   c2.111,0.649,3.53,2.57,3.53,4.779V61z"/>
+                      <circle cx="38" cy="29" r="1"/>
+                      <circle cx="48" cy="29" r="1"/>
+                      <rect height="2" width="2" x="15" y="29"/>
+                      <rect height="2" width="2" x="11" y="29"/>
+                    </g>
+                  </svg> Assistance </span>
+
+                <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </summary>
+
+              <ul class="mt-2 space-y-1 px-4">
+                <li>
+                  <a href="/client/Faire&une&demande"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Faire une demande
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/client/Afficher&les&demandes"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Liste des demandes
+                  </a>
+                </li>
+
+              </ul>
+            </details>
+          </li>
+
+          <li>
+            <details class="group [&_summary::-webkit-details-marker]:hidden">
+              <summary
+                class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-white hover:bg-orange-200 hover:text-gray-700">
+                <span class="text-xl font-medium"> <svg class="h-6 w-6 inline-block fill-current text-white mr-2" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                  <g id="about">
+                    <path d="M16,16A7,7,0,1,0,9,9,7,7,0,0,0,16,16ZM16,4a5,5,0,1,1-5,5A5,5,0,0,1,16,4Z"/>
+                    <path d="M17,18H15A11,11,0,0,0,4,29a1,1,0,0,0,1,1H27a1,1,0,0,0,1-1A11,11,0,0,0,17,18ZM6.06,28A9,9,0,0,1,15,20h2a9,9,0,0,1,8.94,8Z"/>
+                  </g>
+                </svg>
+                Profil </span>
+
+                <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </summary>
+
+              <ul class="mt-2 space-y-1 px-4">
+                <li>
+                    <a href="/client/Changer&mon&de&passe"
+                      class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                      Mot de passe
+                    </a>
+                </li>
+
+                <li>
+                  <a href="/auth/logout"
+                    class="w-full rounded-lg px-4 py-2 text-xl font-medium text-white [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700">
+                    Deconnexion
+                  </a>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+
+
+    </div>
+    <div class="h-screen w-full bg-gray-100">{% block content %} {% endblock %}</div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+
+</body>
+
+</html>

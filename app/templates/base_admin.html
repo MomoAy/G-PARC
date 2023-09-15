@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %} doc {% endblock %}</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+  <style>
+    * {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Style de la barre de défilement */
+    ::-webkit-scrollbar {
+      width: 6px;
+      /* Largeur de la barre de défilement */
+      height: 6px;
+    }
+
+    /* Style du "thumb" de la barre de défilement */
+    ::-webkit-scrollbar-thumb {
+      background-color: gray;
+      /* Couleur du thumb */
+      border-radius: 10px;
+      /* Contours arrondis */
+    }
+
+    /* Style de la piste de défilement */
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+      /* Couleur de la piste */
+    }
+
+    /* Style du coin entre le thumb et la piste */
+    ::-webkit-scrollbar-corner {
+      background-color: transparent;
+      /* Couleur du coin */
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" /> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+  <!-- Afficher les messages flash -->
+  {% with messages = get_flashed_messages(with_categories = true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  {% if category == "error" %}
+  <div id="alert-additional-content-1"
+    class="p-4 text-red-800 border border-red-300 rounded-lg bg-red-50  absolute top-0 left-1/2 transform -translate-x-1/2 mt-2 bg-opacity-90"
+    role="alert">
+    <div class="flex items-center">
+      <svg class="flex-shrink-0 w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 20 20">
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+      </svg>
+      <span class="sr-only">Info</span>
+      <h3 class="text-lg font-medium">{{message}}</h3>
+    </div>
+    <div class="flex justify-end">
+      <button type="button"
+        class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-red-600 dark:border-red-600 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
+        data-dismiss-target="#alert-additional-content-1" aria-label="Close">
+        Dismiss
+      </button>
+    </div>
+  </div>
+  {% elif category == "success" %}
+  <div id="alert-additional-content-2"
+    class="p-4 text-green-800 border border-green-300 rounded-lg bg-green-50  dark:text-green-400 absolute top-0 left-1/2 transform -translate-x-1/2 mt-2 bg-opacity-90"
+    role="alert">
+    <div class="flex items-center">
+      <svg class="flex-shrink-0 w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 20 20">
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+      </svg>
+      <span class="sr-only">Info</span>
+      <h3 class="text-lg font-medium">{{message}}</h3>
+    </div>
+    <div class="flex justify-end">
+      <button type="button"
+        class="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-green-600 dark:border-green-600 dark:text-green-500 dark:hover:text-white dark:focus:ring-green-800"
+        data-dismiss-target="#alert-additional-content-2" aria-label="Close">
+        Fermer
+      </button>
+    </div>
+  </div>
+  {% else %}
+  <div id="alert-additional-content-3"
+    class="p-4 mb-4 text-blue-800 border border-blue-300 rounded-lg bg-blue-50  dark:text-blue-400 absolute top-0 left-1/2 transform -translate-x-1/2 mt-2 bg-opacity-90"
+    role="alert">
+    <div class="flex items-center">
+      <svg class="flex-shrink-0 w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+        viewBox="0 0 20 20">
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+      </svg>
+      <span class="sr-only">Info</span>
+      <h3 class="text-lg font-medium">{{message}}</h3>
+    </div>
+    <div class="flex justify-end">
+      <button type="button"
+        class="text-blue-800 bg-transparent border border-blue-800 hover:bg-blue-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-blue-600 dark:border-blue-600 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800"
+        data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+        Fermer
+      </button>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <div class="flex h-screen">
+    <!-- Navbar -->
+    <div class="flex h-screen flex-col justify-between border-e bg-gray-900 w-1/5 overflow-y-auto">
+      <div class="px-4 py-6">
+        <span class="grid h-10 w-62 place-content-center rounded-lg bg-gray-100 text-2xl font-bold text-orange-600">
+          G-PARC
+        </span>
+
+        <ul class="mt-6 space-y-1">
+          <li>
+            <a href="/admin/" class="block rounded-lg hover:bg-orange-200 px-4 py-2 text-xl font-medium text-white">
+              Dashboard
+            </a>
+          </li>
+
+          <li>
+            <details class="group [&_summary::-webkit-details-marker]:hidden">
+              <summary
+                class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-white hover:bg-orange-200 hover:text-gray-700">
+                <span class="text-xl font-medium"> Parc </span>
+
+                <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </summary>
+
+              <ul class="mt-2 space-y-1 px-4">
+                <li>
+                  <details class="group [&_summary::-webkit-details-marker]:hidden">
+                    <summary
+                      class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-white hover:bg-orange-200 hover:text-gray-700">
+                      <span class="text-xl font-medium"> Matériels </span>
+
+                      <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd" />
+                        </svg>
+                      </span>
+                    </summary>
+
+                    <ul class="mt-2 space-y-1 px-4">
+                      <li>
+                        <a href="/admin/marques"
+                          class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                          Marques
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="/admin/types"
+                          class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                          Types
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="/admin/peripheriques"
+                          class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                          Périphériques
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="/admin/machines"
+                          class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                          Machines
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="/admin/commutateurs"
+                          class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                          Commutateurs
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="/admin/serveurs"
+                          class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                          Serveurs
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="/admin/imprimantes"
+                          class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                          Imprimantes
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="/admin/telephones"
+                          class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                          Telephones
+                        </a>
+                      </li>
+                    </ul>
+                  </details>
+
+                </li>
+
+
+                <li>
+                  <a href="/admin/licences"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Logiciels
+                  </a>
+                </li>
+                <li>
+                  <a href="/admin/allocations"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Allouer un équipement
+                  </a>
+                </li>
+                <!-- <li>
+                  <a href="/admin/"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Allocation de péripheriques
+                  </a>
+                </li> -->
+              </ul>
+            </details>
+          </li>
+
+          <li>
+            <details class="group [&_summary::-webkit-details-marker]:hidden">
+              <summary
+                class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-white hover:bg-orange-200 hover:text-gray-700">
+                <span class="text-xl font-medium"> Employés </span>
+
+                <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </summary>
+
+              <ul class="mt-2 space-y-1 px-4">
+                <li>
+                  <a href="/admin/Créer&des&employés"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Ajouter un employé
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/admin/employe&list"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Liste des employés
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/admin/employe&ressources&list"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Employés & ressources
+                  </a>
+                </li>
+              </ul>
+            </details>
+
+          </li>
+
+          <li>
+            <details class="group [&_summary::-webkit-details-marker]:hidden">
+              <summary
+                class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-white hover:bg-orange-200 hover:text-gray-700">
+                <span class="text-xl font-medium"> Services </span>
+
+                <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </summary>
+
+              <ul class="mt-2 space-y-1 px-4">
+                <li>
+                  <a href="/admin/add&service"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Ajouter un service
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/admin/services&list"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Liste des services
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/admin/service&ressources&list"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Services & ressources
+                  </a>
+                </li>
+              </ul>
+            </details>
+          </li>
+
+          <li>
+            <details class="group [&_summary::-webkit-details-marker]:hidden">
+              <summary
+                class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-white hover:bg-orange-200 hover:text-gray-700">
+                <span class="text-xl font-medium"> Assistance </span>
+
+                <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </summary>
+
+              <ul class="mt-2 space-y-1 px-4">
+                <li>
+                  <a href="/admin/assistance&en&attente"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    En attente
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/admin/liste&assistance&accepte"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Accepter
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/admin/liste&assistance&refuse"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Rejeter
+                  </a>
+                </li>
+              </ul>
+            </details>
+          </li>
+
+          <li>
+            <details class="group [&_summary::-webkit-details-marker]:hidden">
+              <summary
+                class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-white hover:bg-orange-200 hover:text-gray-700">
+                <span class="text-xl font-medium"> Profil </span>
+
+                <span class="shrink-0 transition duration-300 group-open:-rotate-180">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </summary>
+
+              <ul class="mt-2 space-y-1 px-4">
+                <li>
+                  <a href="/admin/password"
+                    class="block rounded-lg px-4 py-2 text-xl font-medium text-white hover:bg-gray-100 hover:text-gray-700">
+                    Mot de passe
+                  </a>
+                </li>
+
+                <li>
+                  <a href="/auth/logout"
+                    class="w-full rounded-lg px-4 py-2 text-xl font-medium text-white [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700">
+                    Deconnexion
+                  </a>
+                </li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="h-screen w-full bg-gray-100 overflow-y-auto overflow-x-auto">{% block content %} {% endblock %}</div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+  <!-- <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script> -->
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
+
+  <script>
+    function openModal() {
+      const modal = document.querySelector('.modal');
+      modal.classList.remove('hidden');
+    }
+
+    $(document).ready(function () {
+      $('#myTable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        "ordering": true,
+      });
+
+      window.onclick = function (event) {
+        const modal = document.querySelector('.modal');
+        if (event.target == modal) {
+          modal.classList.add('hidden');
+        }
+      };
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Commutateurs
+{% endblock %}
+{% block content %}
+
+<div class="p-10">
+    <h1 class="text-3xl font-bold">Liste des commutateurs</h1><br/>
+
+    <div class="flex justify-start mx-auto" >
+        <button
+            class="mb-2 shadow-xl block text-white bg-orange-600 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            type="button" onclick="openModal()"><span class="">+</span> Ajouter un commutateur</button>
+    </div>
+
+    <div class=" bg-white p-10 rounded-xl border border-gray-300 shadow-xl overflow-x-auto">
+        <table id="myTable" class="display">
+            <thead>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Marque</th>
+                <th>Type</th>
+                <th>Nombre de ports</th>
+                <th>Modèle</th>
+                <th>Numéro de série</th>
+                <th>Date Achat</th>
+                <!-- <th>Actions</th> -->
+            </thead>
+            
+            <tbody>
+                {% for com , marque, type in data %}
+                <tr>
+                    <td align="center">{{loop.index}}</td>
+                    <td align="center">{{ com.nom }}</td>
+                    <td align="center">{{ marque.nom }}</td>
+                    <td align="center">{{ type.nom }}</td>
+                    <td align="center">{{ com.nb_ports }}</td>
+                    <td align="center">{{ com.model }}</td>
+                    <td align="center">{{ com.no_serie }}</td>
+                    <td align="center">{{ com.date_achat }}</td>
+                    <!-- <td align="center">
+                        <a
+                            class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
+                            href="/admin//{{com.id}}">
+                            Modifier
+                        </a>
+                    <a
+                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                            href="/admin/delete&type/{{com.id}}">
+                            Supprimer
+                        </a>
+                    </td> -->
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+
+
+<div class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 overflow-y-auto">
+    <div class="modal-content bg-white rounded-lg p-6 w-1/2">
+        <form method="POST" action="/admin/add&commutateur" class="w-full">
+            <div>
+                <label for="nom" class="block mb-2 text-sm font-medium text-gray-900">Nom : </label>
+                <input type="text" id="nom" name="nom"
+                    class="bg-gray-50 mb-4 mt-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                     required>
+            </div>
+            <div class="mb-4">
+                <label for="marque_id" class="block mb-2">Marque :</label>
+                <select id="marque_id" name="marque_id" required
+                    class="w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300">
+                    <option value="" disabled selected>Choisir une marque</option>
+                    {% for  marque in data2 %}
+                    <option value={{marque.id}}>{{marque.nom}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="type_id" class="block mb-2">Type :</label>
+                <select id="type_id" name="type_id" required
+                    class="w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300">
+                    <option value="" disabled selected>Choisir un type</option>
+                    {% for type in data3 %}
+                    <option value={{type.id}}>{{type.nom}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="nb_ports" class="block mb-2 text-sm font-medium text-gray-900">Nombre de ports : </label>
+                <input type="number" id="nb_ports" name="nb_ports"
+                    class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                     required>
+            </div>
+            <div>
+                <label for="model" class="block mb-2 text-sm font-medium text-gray-900">Modèle : </label>
+                <input type="text" id="model" name="model"
+                    class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                    required>
+            </div>
+            <div>
+                <label for="no_serie" class="block mb-2 text-sm font-medium text-gray-900">Numéro de série : </label>
+                <input type="text" id="no_serie" name="no_serie"
+                    class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                    required>
+            </div>
+            <div>
+                <label for="date_achat" class="block mb-2 text-sm font-medium text-gray-900">Date achat : </label>
+                <input type="date" id="date_achat" name="date_achat"
+                    class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                     required>
+            </div>
+            <div class="flex justify-end m-4">
+                <button type="submit"
+                    class="group relative inline-block text-sm font-medium text-orange-600 focus:outline-none focus:ring active:text-orange-500">
+                    <span
+                        class="absolute inset-0 translate-x-0 translate-y-0 bg-orange-600 transition-transform group-hover:translate-y-0.5 group-hover:translate-x-0.5"></span>
+                    <span class="relative block border border-current bg-white px-8 py-3">
+                        Soumettre
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

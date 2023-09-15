@@ -1,0 +1,37 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Demande d'assistance en attente
+{% endblock %}
+{% block content %}
+<div class="w-4/5 mt-4 p-6 shadow-xl border border-gray-500 rounded-xl mx-auto">
+    <h1 class="text-4xl font-bold" align="center">Liste des demandes d'assistances</h1><br/>
+    <table id="myTable" class="display w-screen">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Destinataire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assist, user in data %}
+            <tr>
+                <td align="center">{{assist.titre}}</td>
+                <td align="center">{{assist.description}}</td>
+                <td align="center">{{user.nom}}</td>
+                <td align="center"><a class=" bloc focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+                        href="/admin/accept&assist/{{assist.id}}">
+                        Accepter
+                    </a>
+                <a class="bloc focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                        href="/admin/refuse&assist/{{assist.id}}">
+                        Rejeter
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

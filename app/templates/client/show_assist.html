@@ -1,0 +1,30 @@
+{% extends "base_client.html" %}
+{% block title %}
+Liste des assistances demandées
+{% endblock %}
+{% block content %}
+<div class="w-full">
+    <h1 align="center" class="text-3xl">Liste des demandes</h1>
+    <div class="w-4/5 mx-auto mt-8 rounded-xl shadow-xl border border-gray-500 bg-white">
+        <ul class="w-full  p-2">
+            {% if not data %}
+                <p>Aucune assistance pour le moment pour le moment</p>
+            {% else %}
+            {% for assist in data %}
+            <li class="flex justify-between p-8 hover:bg-gray-100">
+                {{assist.titre}}
+                {% if assist.statut == 0 %}
+                <span class="bg-gray-300 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded">En attente</span>
+                {% elif assist.statut == 1 %}
+                <span
+                    class="bg-green-100 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded bg-green-600">Accepté</span>
+                {% else %}
+                <span class="bg-red-100 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded bg-red-600">Rejeté</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

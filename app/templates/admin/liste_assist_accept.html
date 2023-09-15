@@ -1,0 +1,25 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Demande d'assistance accepté
+{% endblock %}
+{% block content %}
+<div>
+
+    <div class="w-4/5 mx-auto p-4 mt-8 rounded-xl shadow-xl border border-gray-500 bg-white">
+        <h1 class="text-4xl font-bold" align="center">Liste des demandes d'assistances acceptées</h1><br/>
+        <ul class="w-full  p-2">
+            {% if not data %}
+                <p>Aucune assistance pour le moment pour le moment</p>
+            {% else %}
+            {% for assist,user in data %}
+            <li class="flex justify-between p-8 hover:bg-gray-100">
+                <span>{{assist.titre}}<span class="bg-gray-300 p-2 rounded-xl ml-2">Demandé par : {{user.nom}}</span></span>
+                <span class="bg-green-600 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded">Accepter</span>
+            </li>
+            {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

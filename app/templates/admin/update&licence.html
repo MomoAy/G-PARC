@@ -1,0 +1,51 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Modifier un Logiciel
+{% endblock %}
+{% block content %}
+<div class="p-10 container mx-auto">
+    <h1 class="text-3xl text-bold mb-4">Modifier</h1>
+    <div class="bg-white rounded-lg p-6">
+        <form method="POST" class="w-full">
+            <input type="hidden" name="id" value="{{data.id}}">
+            <div>
+                <label for="licence" class="block mb-2 text-sm font-medium text-gray-900">Licence : </label>
+                <input type="text" id="licence" name="nom" value="{{data.nom}}"
+                    class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                    placeholder="Kapersky, ..." required>
+            </div>
+            <div>
+                <label for="key" class="block mb-2 text-sm font-medium text-gray-900">Clé : </label>
+                <input type="text" id="key" name="key" value="{{data.key}}"
+                    class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                    placeholder="7882XXXXX...." required>
+            </div>
+            <div>
+                <label for="date_debut" class="block mb-2 text-sm font-medium text-gray-900">Début : </label>
+                <input type="date" id="date_debut" name="date_debut" value="{{data.date_debut}}"
+                    class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                    required>
+            </div>
+            <div>
+                <label for="date_fin" class="block mb-2 text-sm font-medium text-gray-900">Fin : </label>
+                <input type="date" id="date_fin" name="date_fin" value="{{data.date_fin}}"
+                    class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                    required>
+            </div>
+            <div class="flex justify-around m-4">
+                
+                <button type="submit"
+                    class="group relative inline-block text-sm font-medium text-orange-600 focus:outline-none focus:ring active:text-orange-500">
+                    <span
+                        class="absolute inset-0 translate-x-0 translate-y-0 bg-orange-600 transition-transform group-hover:translate-y-0.5 group-hover:translate-x-0.5"></span>
+                    <span class="relative block border border-current bg-white px-8 py-3">
+                        Modifier
+                    </span>
+                </button>
+            </div>
+        </form>
+
+    </div>
+    
+</div>
+{% endblock %}

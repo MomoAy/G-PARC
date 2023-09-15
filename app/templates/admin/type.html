@@ -1,0 +1,68 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Types
+{% endblock %}
+{% block content %}
+<div class="p-10">
+    <h1 class="text-3xl font-bold" >Liste des types d'équipement</h1><br/>
+
+    <div class="flex justify-start mx-auto" >
+        <button
+            class="mb-2 shadow-xl block text-white bg-orange-600 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            type="button" onclick="openModal()"><span class="">+</span> Ajouter un type</button>
+    </div>
+
+    <div class="bg-white  p-10 rounded-xl border border-gray-300 shadow-xl overflow-x-auto">
+        <table id="myTable" class="display">
+            <thead>
+                <th>#</th>
+                <th>Types</th>
+                <th>Actions</th>
+            </thead>
+            
+            <tbody>
+                {% for type in data %}
+                <tr>
+                    <td align="center">{{loop.index}}</td>
+                    <td align="center">{{ type.nom }}</td>
+                    <td align="center"><a
+                            class="focus:outline-none text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-900"
+                            href="/admin/update&type/{{type.id}}">
+                            Modifier
+                        </a><a
+                            class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                            href="/admin/delete&type/{{type.id}}">
+                            Supprimer
+                        </a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+        </table>
+    </div>
+</div>
+
+
+<div class="modal hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="modal-content bg-white rounded-lg p-6 w-1/2">
+        <form method="POST" action="/admin/add&type" class="w-full">
+            <div>
+                <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Type : </label>
+                <input type="text" id="type" name="nom"
+                    class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                    placeholder="Imprimante, Machine, ..." required>
+            </div>
+            <div class="flex justify-end m-4">
+                <button type="submit"
+                    class="group relative inline-block text-sm font-medium text-orange-600 focus:outline-none focus:ring active:text-orange-500">
+                    <span
+                        class="absolute inset-0 translate-x-0 translate-y-0 bg-orange-600 transition-transform group-hover:translate-y-0.5 group-hover:translate-x-0.5"></span>
+                    <span class="relative block border border-current bg-white px-8 py-3">
+                        Soumettre
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base_client.html" %}
+{% block title %}
+Changer de mot de passe
+{% endblock %}
+{% block content %}
+<div class="w-4/5 bg-white flex mx-auto p-6 mt-12 rounded-xl border border-gray-300 shadow-xl">
+    <form method="POST" class="w-full">
+        <input type="hidden" name="id" value="{{user.id}}"> 
+        <div>
+            <label for="mot_de_passe" class="block mb-2 text-sm font-medium text-gray-900">Mot de passe : </label>
+            <input type="password" id="mot_de_passe" name="mot_de_passe"
+                class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                required>
+        </div>
+        <div>
+            <label for="repeat_password" class="block mb-2 text-sm font-medium text-gray-900">Repéter le mot de passe : </label>
+            <input type="password" id="repeat_password" name="repeat_password"
+                class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                required>
+        </div>
+        <div class="flex justify-end m-4"> 
+            <button type="submit"
+            class="group relative inline-block text-sm font-medium text-orange-600 focus:outline-none focus:ring active:text-orange-500">
+            <span
+                class="absolute inset-0 translate-x-0 translate-y-0 bg-orange-600 transition-transform group-hover:translate-y-0.5 group-hover:translate-x-0.5"></span>
+            <span class="relative block border border-current bg-white px-8 py-3">
+                Soumettre
+            </span>
+        </button>
+        </div>
+    </form>
+</div>
+<div class="m-12">
+    <h2 class="mb-2 text-xl  text-black">NB : </h2>
+    <ul class="w-4/5 space-y-1 list-disc list-inside text-gray-400">
+        <li>
+            Le mot de passe doit être de minimum 7 caractères.
+        </li>
+        <li>
+            Le mot de passe doit être différent de l'ancien.
+        </li>
+    </ul>
+</div>
+
+{% endblock %}

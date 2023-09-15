@@ -1,0 +1,106 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Ajouter des employés
+{% endblock %}
+{% block content %}
+<div class="container mx-auto p-6">
+    <h1 class="text-3xl font-bold">Ajouter un employé </h1>
+    <div class="w-full bg-white border border-gray-100 p-8 mt-8 rounded-2xl shadow-2xl">
+        <form method="post">
+            <div class="relative z-0 w-full mb-6 group">
+                <input type="text" name="nom" id="nom"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="nom"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nom</label>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <input type="text" name="prenom" id="prenom"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="prenom"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Prenom</label>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <input type="text" name="nom_utilisateur" id="nom_utilisateur"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="nom_utilisateur"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nom
+                    utilisateur</label>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <input type="email" name="email" id="email"
+                    class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    placeholder=" " required />
+                <label for="email"
+                    class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <label for="service" class="block mb-2">Service :</label>
+                <select id="service" name="service" required
+                    class="w-full px-3 py-2 border rounded-md placeholder-gray-400 focus:outline-none focus:ring focus:border-blue-300">
+                    <option value="" disabled selected>Choisir un service</option>
+                    {% for service in data %}
+                    <option value={{service.id}}>{{service.nom}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="relative z-0 w-full mb-6 group">
+                <label for="is_validated" class="flex gap-4">
+                    <input type="checkbox" id="is_validated" name="is_validated"
+                        class="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm" />
+
+                    <span class="text-sm text-gray-700">
+                        Activer le compte
+                    </span>
+                </label>
+            </div>
+
+            <div class="relative z-0 w-full mb-6 group">
+                <label for="is_admin_request" class="flex gap-4">
+                    <input type="checkbox" id="is_admin_request" name="is_admin_request"
+                        class="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm" />
+
+                    <span class="text-sm text-gray-700">
+                        Profil Administrateur
+                    </span>
+                </label>
+            </div>
+
+            <div class="flex justify-end m-4">
+                <button type="submit"
+                    class="group relative inline-block text-sm font-medium text-orange-600 focus:outline-none focus:ring active:text-orange-500">
+                    <span
+                        class="absolute inset-0 translate-x-0 translate-y-0 bg-orange-600 transition-transform group-hover:translate-y-0.5 group-hover:translate-x-0.5"></span>
+                    <span class="relative block border border-current bg-white px-8 py-3">
+                        Soumettre
+                    </span>
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<div class="m-12">
+    <h2 class="mb-2 text-xl  text-black">NB : </h2>
+    <ul class="w-4/5 space-y-1 list-disc list-inside text-gray-400">
+        <li>
+            Les différents champs doivent avoir minimum 4 caractères.
+        </li>
+        <li>
+            En cochant sur profil administrateur, vous créerez un administrateur. Au cas contraire se sera un compte employé.
+        </li>
+        <li>
+            En cochant Activer le compte l'utilisateur aura accès à sa session immediatement.
+        </li>
+        <li>
+            A la creation du compte (actif ou non), l'utilisateur recevra un mail avec ses identifiants de connexion.
+        </li>
+    </ul>
+
+</div>
+{% endblock %}

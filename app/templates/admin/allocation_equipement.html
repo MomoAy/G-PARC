@@ -1,0 +1,143 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Alouer un équipement
+{% endblock %}
+{% block content %}
+<div class="container mx-auto p-10">
+    <h1 class="text-2xl font-bold mb-4 text-gray-900">Allocation d'équipement</h1>
+    <p class="text-gray-600 mb-6">Sélectionnez un utilisateur ou un service, un type d'équipement et un équipement.</p>
+    <form method="POST">
+        <div class="bg-white rounded-lg p-6 shadow-md">
+            <label class="block mb-2 text-gray-900 font-semibold" for="entite">Entité :</label>
+            <select id="entite" name="entite" class="w-full border rounded-md px-3 py-2 mb-4" required
+                onchange="updateEntite()">
+                <option value="" disabled selected>Choisir une entité</option>
+                <option value="Employe">Employé</option>
+                <option value="Service">Service</option>
+            </select>
+
+            <label class="block mb-2 text-gray-900 font-semibold" for="objet"><span id="entite_nom"></span></label>
+            <select id="objet" name="objet_id" class="w-full border rounded-md px-3 py-2 mb-4" required>
+
+            </select>
+
+            <label class="block mb-2 text-gray-900 font-semibold" for="type">Type d'équipement :</label>
+            <select id="type" class="w-full border rounded-md px-3 py-2 mb-4" name="type" required
+                onchange="updateEquipments()">
+                <option value="" disabled selected>Choisir un type</option>
+                <option value="Machines">Machines</option>
+                <option value="Commutateurs">Commutateurs</option>
+                <option value="Serveurs">Serveurs</option>
+                <option value="Imprimantes">Imprimantes</option>
+                <option value="Telephones">Telephones</option>
+            </select>
+
+            <label class="block mb-2 text-gray-900 font-semibold" for="equipement">Équipement :</label>
+            <select id="equipement" class="w-full border rounded-md px-3 py-2 mb-4" required name="equipement_id">
+                <!-- Options d'équipement seront mises à jour dynamiquement -->
+            </select>
+
+            <div class="flex justify-end m-4">
+                <button type="submit"
+                    class="group relative inline-block text-sm font-medium text-orange-600 focus:outline-none focus:ring active:text-orange-500">
+                    <span
+                        class="absolute inset-0 translate-x-0 translate-y-0 bg-orange-600 transition-transform group-hover:translate-y-0.5 group-hover:translate-x-0.5"></span>
+                    <span class="relative block border border-current bg-white px-8 py-3">
+                        Soumettre
+                    </span>
+                </button>
+            </div>
+
+        </div>
+    </form>
+    <div class="mt-8">
+        <a href="/admin/employe&list" class="text-orange-500 hover:underline">Voir la liste des utilisateurs</a>
+        <span class="mx-2 text-gray-600">|</span>
+        <a href="/admin/services&list" class="text-orange-500 hover:underline">Voir la liste des services</a>
+    </div>
+</div>
+<div class="m-12">
+    <h2 class="mb-2 text-xl  text-black">NB : </h2>
+    <ul class="w-4/5 space-y-1 list-disc list-inside text-gray-400">
+        <li>
+            Veuillez ne pas Affecter une imprante directement à un employé mais à un service même si le service est
+            composé d'une seule personne, cela facilitera la gestion 
+        </li>
+    </ul>
+
+</div>
+
+<script>
+    function updateEquipments() {
+        const typeDropdown = document.getElementById("type");
+        const selectedType = typeDropdown.value;
+        const equipementDropdown = document.getElementById("equipement");
+
+        equipementDropdown.innerHTML = "";
+        if (selectedType === "Machines") {
+            equipementDropdown.innerHTML = `
+                <option value="" disabled selected>Choisir une machine</option>
+                {% for d2 in data2 %}
+                    <option value={{d2.id}}>{{d2.nom}}</option>
+                {% endfor %}
+                `;
+        } else if (selectedType === "Commutateurs") {
+            equipementDropdown.innerHTML = `
+                <option value="" disabled selected>Choisir un commutateur</option>
+                {% for d3 in data3 %}
+                    <option value={{d3.id}}>{{d3.nom}}</option>
+                {% endfor %}
+                `;
+        } else if (selectedType === "Imprimantes") {
+            equipementDropdown.innerHTML = `
+                <option value="" disabled selected>Choisir une imprimante</option>
+                {% for d4 in data4 %}
+                    <option value={{d4.id}}>{{d4.nom}}</option>
+                {% endfor %}
+                `;
+        } else if (selectedType === "Serveurs") {
+            equipementDropdown.innerHTML = `
+                <option value="" disabled selected>Choisir une machine</option>
+                {% for d5 in data5 %}
+                    <option value={{d5.id}}>{{d5.nom}}</option>
+                {% endfor %}
+                `;
+        } else if (selectedType === "Telephones") {
+            equipementDropdown.innerHTML = `
+                <option value="" disabled selected>Choisir une machine</option>
+                {% for d6 in data6 %}
+                    <option value={{d6.id}}>{{d6.nom}}</option>
+                {% endfor %}
+                `;
+        }
+    }
+
+
+    function updateEntite() {
+        const typeDropdown2 = document.getElementById("entite");
+        const selectedType2 = typeDropdown2.value;
+        const equipementDropdown2 = document.getElementById("objet");
+
+        equipementDropdown2.innerHTML = "";
+        if (selectedType2 === "Employe") {
+            equipementDropdown2.innerHTML = `
+                <option value="" disabled selected>Choisir un employé</option>
+                {% for d in data %}
+                    <option value={{d.id}}>{{d.nom}}</option>
+                {% endfor %}
+                `;
+            document.getElementById("entite_nom").textContent = "Employé : ";
+        } else if (selectedType2 === "Service") {
+            equipementDropdown2.innerHTML = `
+                <option value="" disabled selected>Choisir un service</option>
+                {% for ds in datas %}
+                    <option value={{ds.id}}>{{ds.nom}}</option>
+                {% endfor %}
+                `;
+            document.getElementById("entite_nom").textContent = "Service : ";
+        }
+
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base_admin.html" %}
+{% block title %}
+Mise à jour Marques
+{% endblock %}
+{% block content %}
+<div class="p-10 mx-auto container">
+    <h1 class="text-3xl font-bold" >Modifier</h1><br/>
+    <div class="bg-white rounded-lg p-6">
+        <form method="POST"  class="w-full">
+            <div>
+            <input type="hidden" name="id" value="{{data.id}}">
+            <label for="type" class="block mb-2 text-sm font-medium text-gray-900">Type : </label>
+                <input type="text" id="type" name="nom" value="{{data.nom}}"
+                    class="bg-gray-50 mb-4 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 text-black"
+                    placeholder="Imprimante, Machine, ..." required>
+            </div>
+            <div class="flex justify-end m-4">
+                <button type="submit"
+                    class="group relative inline-block text-sm font-medium text-orange-600 focus:outline-none focus:ring active:text-orange-500">
+                    <span
+                        class="absolute inset-0 translate-x-0 translate-y-0 bg-orange-600 transition-transform group-hover:translate-y-0.5 group-hover:translate-x-0.5"></span>
+                    <span class="relative block border border-current bg-white px-8 py-3">
+                        Modifier
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
